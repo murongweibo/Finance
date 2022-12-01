@@ -50,7 +50,7 @@ if __name__ == '__main__':
         except :
             error = traceback.format_exc()
             logger.error(error)
-        logger.error(f"等待1分钟后执行！")
+        logger.warning(f"等待1分钟后执行！")
         time.sleep(60)
         #with tqdm(total=60) as pbar:
         #    for i in range(60):
