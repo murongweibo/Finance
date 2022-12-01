@@ -3,6 +3,8 @@ from loguru import logger
 import time
 from tqdm import tqdm
 import traceback
+import streamlit as st
+password = st.secrets["db_password"]
 def main():
     '''
     定义主方法
@@ -30,7 +32,7 @@ def main():
     r = redis.Redis(
       host='redis-13066.c290.ap-northeast-1-2.ec2.cloud.redislabs.com',
       port=13066,
-      password='cHCNjQ5KJg2NUgjiT3PDbb86uG0kJDJO')
+      password=password)
 
     import json
 
