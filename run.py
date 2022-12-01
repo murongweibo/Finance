@@ -46,7 +46,7 @@ if __name__ == '__main__':
     while True:
         try:
             main()
-            logger.error(f"执行完成！")
+            logger.warning(f"执行完成！")
         except :
             error = traceback.format_exc()
             logger.error(error)
