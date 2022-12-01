@@ -2,6 +2,7 @@ import streamlit as st
 import json
 from loguru import logger
 
+password = st.secrets["db_password"]
 def get_desc(redis_symbol, symbol_cn):
     '''
     获取云端数据，用于后续显示
@@ -11,7 +12,7 @@ def get_desc(redis_symbol, symbol_cn):
     r = redis.Redis(
       host='redis-13066.c290.ap-northeast-1-2.ec2.cloud.redislabs.com',
       port=13066,
-      password='cHCNjQ5KJg2NUgjiT3PDbb86uG0kJDJO')
+      password=password)
 
     data = r.get(redis_symbol).decode()
     data = json.loads(data)
