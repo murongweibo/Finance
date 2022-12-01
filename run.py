@@ -49,9 +49,9 @@ if __name__ == '__main__':
         except :
             error = traceback.format_exc()
             logger.error(error)
-        logger.error(f"等待60分钟后执行！")
-        with tqdm(total=3600) as pbar:
-            for i in range(3600):
+        logger.error(f"等待1分钟后执行！")
+        with tqdm(total=60) as pbar:
+            for i in range(60):
                 time.sleep(1)
                 pbar.update(1)
         
