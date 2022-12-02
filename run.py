@@ -14,6 +14,7 @@ def start_contab():
     '''
     #cmd = 'nohup python contab_run.py >/dev/null 2>&1 &'
     cmd = 'python contab_run.py'
+    logger.info(f"os.__file__={os.__file__}")
     logger.info(f"cmd = {cmd}")
     os.system(cmd)
     
