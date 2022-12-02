@@ -6,7 +6,7 @@ from loguru import logger as loguru_logger
 from datetime import datetime
 from datetime import timezone, timedelta
 import pytz
-import time
+
 
 class ContabLogger:
     '''
@@ -68,7 +68,7 @@ def main(redis_symbol, symbol):
     r = redis.Redis(
       host='redis-13066.c290.ap-northeast-1-2.ec2.cloud.redislabs.com',
       port=13066,
-      password='cHCNjQ5KJg2NUgjiT3PDbb86uG0kJDJO')
+      password=password)
 
     import json
 
