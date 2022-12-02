@@ -12,7 +12,8 @@ def start_contab():
     '''
     开启调度程序
     '''
-    cmd = 'nohup python contab_run.py >/dev/null 2>&1 &'
+    #cmd = 'nohup python contab_run.py >/dev/null 2>&1 &'
+    cmd = 'python contab_run.py'
     logger.info(f"cmd = {cmd}")
     os.system(cmd)
     
