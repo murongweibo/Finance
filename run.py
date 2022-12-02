@@ -13,7 +13,7 @@ def start_contab():
     开启调度程序
     '''
     #cmd = 'nohup python contab_run.py >/dev/null 2>&1 &'
-    cmd = '/home/appuser/venv/bin/python contab_run.py'
+    cmd = 'nohup /home/appuser/venv/bin/python contab_run.py >/dev/null 2>&1 &'
     logger.info(f"os.__file__={os.__file__}")
     logger.info(f"cmd = {cmd}")
     os.system(cmd)
