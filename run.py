@@ -30,13 +30,16 @@ count = st_autorefresh(interval=1000, limit=1000000000000, key="fizzbuzzcounter"
 
 
 #st.button('开启调度', on_click = start_contab)
-with Cache(cache_path) as db:
-    crontab_run = db.get("crontab_run") 
-if not crontab_run:
-    start_contab()
-    with Cache(cache_path) as db:
-        db.set("crontab_run", 1) 
+#with Cache(cache_path) as db:
+#    crontab_run = db.get("crontab_run") 
+#if not crontab_run:
+#    start_contab()
+#    with Cache(cache_path) as db:
+#        db.set("crontab_run", 1) 
 #实时刷新日志
 txt_content = logger.get_log()
 if txt_content:
     st.code(txt_content)
+else:
+    st.code('未检测到调度运行,尝试重启调度...')
+    start_contab()
