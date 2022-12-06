@@ -12,7 +12,12 @@ def start_contab():
     '''
     开启调度程序
     '''
-    os.system('nohup python contab_run.py >/dev/null 2>&1 &')
+    if code == '1024':
+        st.success('校验通过，正在重启调度...')
+        os.system('nohup python contab_run.py >/dev/null 2>&1 &')
+    else:
+        st.success('校验不通过！')
+    
     
 
 #设置缓存路径
@@ -28,8 +33,8 @@ with Cache(cache_path) as db:
 from streamlit_autorefresh import st_autorefresh
 count = st_autorefresh(interval=1000, limit=1000000000000, key="fizzbuzzcounter")
 
-
-#st.button('开启调度', on_click = start_contab)
+code = st.text_input('请输入调度重启密钥：')
+st.button('开启调度', on_click = start_contab)
 #with Cache(cache_path) as db:
 #    crontab_run = db.get("crontab_run") 
 #if not crontab_run:
@@ -41,5 +46,5 @@ txt_content = logger.get_log()
 if txt_content:
     st.code(txt_content)
 else:
-    st.code('未检测到调度运行,尝试重启调度...')
-    start_contab()
+    st.code('未检测到调度运行...')
+    #start_contab()
