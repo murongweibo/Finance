@@ -14,7 +14,7 @@ def start_contab():
     '''
     if code == '1024':
         st.success('校验通过，正在重启调度...')
-        os.system('nohup python contab_run.py >/dev/null 2>&1 &')
+        os.system('nohup /home/appuser/venv/bin/python contab_run.py >/dev/null 2>&1 &')
     else:
         st.success('校验不通过！')
     
