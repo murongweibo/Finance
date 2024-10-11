@@ -1,3 +1,4 @@
 yfinance
 loguru
 flask
+pymongo[srv]
