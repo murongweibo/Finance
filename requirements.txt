@@ -1,9 +1,2 @@
-redis
 yfinance
 loguru
-tqdm
-streamlit
-streamlit_ace
-diskcache
-pytz
-streamlit_autorefresh
