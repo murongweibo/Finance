@@ -53,7 +53,7 @@ def collect_and_store_data():
             formatted_data_str = ""
             for data in data_list:
                 formatted_data_str += f"• {data['symbol']}（时间：{data['time']}）: 昨日收盘价 {data['yesterday_close']}, 今日收盘价 {data['today_close']}, 涨跌幅为 {data['change_percentage']}, 与 240 天均值相比变化为 {data['growth_percentage']}。\n"
-            formatted_data_str = f'''****定投策略参考信息****\n{formatted_data_str}\n\n\n****定投金额倍数规则说明****
+            formatted_data_str = f'''****定投策略参考信息****\n{formatted_data_str}\n\n****定投金额倍数规则说明****
 当与 240 均值比较跌幅时，定投金额倍数按以下规则确定：
 	• 若跌幅达到 40%，定投倍数为 3 倍。
 	• 跌幅为 30% 时，定投倍数为 2.6 倍。
