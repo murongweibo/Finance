@@ -3,19 +3,17 @@ import yfinance as yf
 import pandas as pd
 import threading
 import time
-from pymongo.mongo_client import MongoClient
+import redis
+import json
 
 app = Flask(__name__)
 
-# MongoDB 连接信息
-uri = "mongodb+srv://murongweibo2:LOvyPUBn93K6c1EL@cluster0.t2dl2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-client = MongoClient(uri)
-
-# 初始化数据库和集合名称
-database_name = "stock_data_db"
-collection_name = "stock_data_collection"
-db = client[database_name]
-collection = db[collection_name]
+# Redis 连接信息
+r = redis.Redis(
+    host='redis-15994.c275.us-east-1-4.ec2.redns.redis-cloud.com',
+    port=15994,
+    password='OYhSfW6XrlfVG4amdFcuZIiFt677jvik'
+)
 
 def collect_and_store_data():
     while True:
@@ -43,11 +41,9 @@ def collect_and_store_data():
                 "growth_factor": round(hist["growth_factor"].iloc[0], 2)
             }
             data_list.append(data_dict)
-        # 删除旧数据
-        collection.delete_many({})
         if data_list:
-            collection.insert_many(data_list)
-            print("数据采集成功并存储到 MongoDB。")
+            r.set('stock_data', json.dumps(data_list))
+            print("数据采集成功并存储到 Redis。")
         else:
             print("本次采集未获取到有效数据。")
         time.sleep(3600)  # 每隔一小时采集一次数据
@@ -63,19 +59,10 @@ def hello_world():
 def get_data():
     api_key = request.args.get('api_key')
     if api_key == 'murongweibo':
-        data_from_db = list(collection.find())
-        if not data_from_db:
+        data_from_redis = r.get('stock_data')
+        if not data_from_redis:
             return jsonify({"message": "暂无数据"}), 200
-        formatted_data = []
-        for item in data_from_db:
-            formatted_item = {
-                "symbol": item["symbol"],
-                "time": item["time"],
-                "yesterday_close": item["yesterday_close"],
-                "today_close": item["today_close"],
-                "growth_factor": item["growth_factor"]
-            }
-            formatted_data.append(formatted_item)
+        formatted_data = json.loads(data_from_redis)
         return jsonify({"data": formatted_data})
     else:
         return jsonify({"error": "Invalid API key"}), 401
