@@ -22,6 +22,8 @@ def collect_and_store_data():
         for symble, symble_cn in [("^NDX", "纳斯达克 100"),
                                    ("^GSPC", "标准普尔 500"),
                                    ("000300.SS", "沪深 300"),
+                                  ("CVX", "雪佛龙"),
+                                  ("KO", "可口可乐"),
                                    ]:
             symbol = yf.Ticker(symble)
             hist = symbol.history(start="2020-01-01", end=today)
