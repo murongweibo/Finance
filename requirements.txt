@@ -1,4 +1,4 @@
 yfinance
 loguru
 flask
-pymongo[srv]
+redis
