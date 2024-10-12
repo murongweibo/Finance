@@ -31,18 +31,27 @@ def collect_and_store_data():
             hist["yesterday_close"] = hist.Close.shift(1)
             hist["today_close"] = hist.Close
             hist["rolling_mean"] = hist.Close.rolling(240).mean()
-            hist["growth_factor"] = (hist.Close - hist.Close.rolling(240).mean()) / hist.Close.rolling(240).mean()
             hist = hist.fillna(0)[-1:]
+            yesterday_close = hist["yesterday_close"].iloc[0]
+            today_close = hist["today_close"].iloc[0]
+            change = (today_close - yesterday_close) / yesterday_close if yesterday_close!= 0 else 0
+            change_percentage = round(change * 100, 2)
+            growth_factor = (today_close - hist["rolling_mean"].iloc[0]) / hist["rolling_mean"].iloc[0] if hist["rolling_mean"].iloc[0]!= 0 else 0
+            growth_percentage = round(growth_factor * 100, 2)
             data_dict = {
                 "symbol": symble_cn,
                 "time": hist["time"].iloc[0],
                 "yesterday_close": round(hist["yesterday_close"].iloc[0], 2),
                 "today_close": round(hist["today_close"].iloc[0], 2),
-                "growth_factor": round(hist["growth_factor"].iloc[0], 2)
+                "change_percentage": f"{change_percentage}%",
+                "growth_percentage": f"{growth_percentage}%"
             }
             data_list.append(data_dict)
         if data_list:
-            r.set('stock_data', json.dumps(data_list))
+            formatted_data_str = ""
+            for data in data_list:
+                formatted_data_str += f"{data['symbol']}（时间：{data['time']}）: 昨日收盘价 {data['yesterday_close']}, 今日收盘价 {data['today_close']}, 涨跌幅为 {data['change_percentage']}, 与 240 天均值相比变化为 {data['growth_percentage']}。\n"
+            r.set('stock_data', formatted_data_str)
             print("数据采集成功并存储到 Redis。")
         else:
             print("本次采集未获取到有效数据。")
@@ -62,8 +71,7 @@ def get_data():
         data_from_redis = r.get('stock_data')
         if not data_from_redis:
             return jsonify({"message": "暂无数据"}), 200
-        formatted_data = json.loads(data_from_redis)
-        return jsonify({"data": formatted_data})
+        return jsonify({"data": data_from_redis.decode()})
     else:
         return jsonify({"error": "Invalid API key"}), 401
 
