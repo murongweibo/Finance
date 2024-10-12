@@ -57,7 +57,7 @@ def collect_and_store_data():
             print("数据采集成功并存储到 Redis。")
         else:
             print("本次采集未获取到有效数据。")
-        time.sleep(3600)  # 每隔一小时采集一次数据
+        time.sleep(60)  # 每隔一小时采集一次数据
 
 data_thread = threading.Thread(target=collect_and_store_data)
 data_thread.start()
