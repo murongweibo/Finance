@@ -73,7 +73,7 @@ def get_data():
         data_from_redis = r.get('stock_data')
         if not data_from_redis:
             return jsonify({"message": "暂无数据"}), 200
-        return jsonify({"data": data_from_redis.decode()})
+        return data_from_redis.decode().replace("\n","<br>")
     else:
         return jsonify({"error": "Invalid API key"}), 401
 
