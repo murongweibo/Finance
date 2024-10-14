@@ -17,11 +17,11 @@ r = redis.Redis(
 
 def collect_and_store_data():
     while True:
-	# 获取当前日期
-	today = str(pd.Timestamp.now()).split()[0]
-	# 将当前日期加上一天
-	new_today = pd.Timestamp(today) + timedelta(days=1)
-	new_today_str = str(new_today).split()[0]
+        # 获取当前日期
+        today = str(pd.Timestamp.now()).split()[0]
+        # 将当前日期加上一天
+        new_today = pd.Timestamp(today) + timedelta(days=1)
+        new_today_str = str(new_today).split()[0]
         data_list = []
         for symble, symble_cn in [("^NDX", "纳斯达克 100"),
                                    ("^GSPC", "标准普尔 500"),
