@@ -6,6 +6,7 @@ import time
 import redis
 import json
 from datetime import timedelta
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -67,7 +68,8 @@ def collect_and_store_data():
 	• 跌幅为 5% 时，定投倍数为 1.4 倍。
 当未跌或跌幅在 0% 以内时，定投倍数为 1 倍。'''
             r.set('stock_data', formatted_data_str)
-            print("数据采集成功并存储到 Redis。")
+            current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            print(f"数据采集成功并存储到 Redis。当前时间：{current_time}")
         else:
             print("本次采集未获取到有效数据。")
         time.sleep(60)  # 每隔一小时采集一次数据
