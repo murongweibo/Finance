@@ -12,9 +12,9 @@ app = Flask(__name__)
 
 # Redis 连接信息
 r = redis.Redis(
-    host='redis-15994.c275.us-east-1-4.ec2.redns.redis-cloud.com',
-    port=15994,
-    password='OYhSfW6XrlfVG4amdFcuZIiFt677jvik'
+    host='redis-18691.c244.us-east-1-2.ec2.redns.redis-cloud.com',
+    port=18691,
+    password='OwIVtHpUb1hGBYsv94Vz5CNpnrzIVIJP'
 )
 
 def collect_and_store_data():
