@@ -32,6 +32,7 @@ def collect_and_store_data():
                                   ("KO", "可口可乐"),
                                    ]:
             symbol = yf.Ticker(symble)
+            print(f"new_today_str={new_today_str}")			   
             hist = symbol.history(start="2020-01-01", end=new_today_str)
             if hist.empty:
                 continue
